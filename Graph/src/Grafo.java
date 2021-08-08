@@ -118,11 +118,41 @@ public class Grafo<E> {
 		 int cont=0;
 		 for(int i=0;i<p1.length();i++) {
 			 if(p1.charAt(i)!=p2.charAt(i))
-				 cont++;
+				 cont++; 
 		 }
 		 if ( cont ==1) {
 			 return true;}
 		 return false;
 		 }
-
+	 public  boolean compararGrafos(Grafo<E> n1, Grafo<E> n2) {
+		 int cont=0;
+		 //primera comparación
+		 if (n1.vertices.size()<n2.vertices.size() ) {
+			return compararGrafos(n2,n1);
+		 } 
+		 for ( int i =0; i<n2.vertices.size();i++) {
+			 for ( int j =0; j<n1.vertices.size();j++) {
+				 if( n2.vertices.get(i).data.equals(n1.vertices.get(j).data))
+					 cont++;
+				 
+			 }
+		 }
+		 if( cont ==n2.vertices.size())//comparo cant de vertices 
+			 for ( int i =0; i<n2.vertices.size();i++) {
+				 for ( int j =0; i<n2.vertices.get(i).edges.size();i++) {
+					 int pos =posicion(n2.vertices.get(i));
+					 buscarVertice(pos,n1, -1 );
+				 }
+			 }
+		return false;
+		 
+	 }
+		 public boolean buscarVertice(int n, Grafo<E> a, Object datos) {
+			 int  c =a.vertices.get(n).edges.size();
+			 for ( int i =0; i<c;i++) {
+					 if ( vertices.get(n).edges.get(i).equals(datos))
+						 return true;
+		 }
+			 return false;
+		 }
 }
