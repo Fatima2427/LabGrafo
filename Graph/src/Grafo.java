@@ -86,7 +86,7 @@ public class Grafo<E> {
 		
 		
 	}
-	public int posicion ( Vertice<E> aux) {
+	public int posicion ( Vertice<E> aux) {// arroja la posicion de un vertice
 		int pos=-1;
 		for ( int i =0; i<this.vertices.size();i++) {
 			if(vertices.get(i).data.equals(aux.data))
@@ -140,7 +140,8 @@ public class Grafo<E> {
 			 return true;}
 		 return false;
 		 }
-	 public  void compararGrafos(Grafo<E> n1, Grafo<E> n2) {
+	 public  boolean compararGrafos(Grafo<E> n1, Grafo<E> n2) {
+		 int cantAristas=0;
 		 int cont=0;
 		 //primera comparación sobre si los vertices del mas pequeño es igual al grafo mayor
 		 if (n1.vertices.size()<n2.vertices.size() ) {
@@ -154,21 +155,28 @@ public class Grafo<E> {
 			 }
 		 }
 		 if( cont ==n2.vertices.size()){//comparo cant de vertices 
+			 cont=0;
 			 for ( int i =0; i<n2.vertices.size();i++) {//2
 				 for ( int j =0; j<n2.vertices.get(i).edges.size();j++) {// vertices de 2
+					 cantAristas++;
 					 int pos =posicion(n2.vertices.get(i));
 					 ArrayList<Arista> n= n2.vertices.get(i).edges;
-					 buscarVertice(n1.vertices.get(pos).edges, n.get(i));
+					 cont +=buscarVertice(n1.vertices.get(pos).edges, n.get(j));
 				 }
 			 }
 		 }
+		 if( cont==cantAristas)
+			 return true;
+		 return false;
 	 }
-	 public boolean buscarVertice( ArrayList<Arista> a, Arista arista) {
+	 public int buscarVertice( ArrayList<Arista> a, Arista arista) {
+		 int cont=0;
 			 int  c =a.size();
 			 for ( int i =0; i<c;i++) {
 					 if ( a.get(i).refDes.data.equals(arista.refDes.data))
-						 return true;
+						 cont++;
 		 }
-			 return false;
+			 return cont;
 		 }
+
 }
