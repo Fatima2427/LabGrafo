@@ -24,6 +24,12 @@ public class Grafo<E> {
 	public void insertAri(E verOri, E verDes) {//arista insert
 		insertAri(verOri, verDes, -1);
 	}
+	public void inserWord(String w1, String w2) {
+		if(comparar(w1,w2)==true)
+			insertAri((E)w1, (E)w2, -1);
+		else
+			return;
+	}
 	public void insertAri(E verOri, E verDes, int weitght) {
 		Vertice<E> orig= new Vertice<E> (verOri);
 		Vertice<E> des= new Vertice<E> (verDes);
@@ -108,26 +114,14 @@ public class Grafo<E> {
 			r +=vertices.get(i).mostrar() ;
 		return r;
 	}
-	 public String orderChars(String _str)
-	    {
-	        char[] arrStr = _str.toCharArray();
-	        Arrays.sort(arrStr);
-	        StringBuilder str = new StringBuilder();
-	        int i;
-	        for (i = 0; i < arrStr.length; i++)
-	            str.append(arrStr[i]);
-
-	        return str.toString();
-	    }
-	 public static boolean comparar(String p1, String p2){
+	 public boolean comparar(String p1, String p2){
 		 int cont=0;
-		 if(p1.length()==p2.length()){
-		 for(int i=0;i<p1.length();i++)
+		 for(int i=0;i<p1.length();i++) {
 			 if(p1.charAt(i)!=p2.charAt(i))
 				 cont++;
 		 }
-		 if ( cont <=1)
-			 return true;
+		 if ( cont ==1) {
+			 return true;}
 		 return false;
 		 }
 
