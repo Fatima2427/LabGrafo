@@ -22,9 +22,7 @@ public class Test<E> {
 		g2.insertAri(1, 2);
 		g2.insertAri(1, 4);
 		System.out.println("\n" + g2);
-		int pos =g.posicion(g.vertices.get(1));
-		System.out.println(pos);
-	
+		g.DFS();
 	}
 	
 }

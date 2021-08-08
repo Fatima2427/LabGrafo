@@ -55,21 +55,41 @@ public class Grafo<E> {
 			}
 		}
 	
-	public void recorrerProfundidadI(Vertice<E> nodoInicio){
+	public void DFS(){
 		LinkedList<Vertice<E>> pila= new LinkedList<Vertice<E>>();
-		LinkedList<Vertice<E>> Adyacentes= new LinkedList<Vertice<E>>();
-        if(nodoInicio != null){
-            pila.add(nodoInicio);
-            while(pila.size() > 0){
-                Vertice<E> nodoVisitado = pila.getFirst();
-                if(nodoVisitado.visitado== false){
-                    nodoVisitado.visitado= true;
-                    System.out.print(nodoVisitado.data+",");                
-                    Adyacentes.add(nodoVisitado);
+		ArrayList<Vertice<E>> Adyacentes= new ArrayList<Vertice<E>>();
+		for (int i = 0; i < tamañoGrafo(); i++) {
+            this.vertices.get(i).visitado=false;
+            for(int j=0;i<tamañoGrafo();j++){
+                if(this.vertices.get(i).visitado==false){
+                    visitas(this.vertices.get(i));
                 }
             }
         }
+ 
     }
+	public int tamañoGrafo() {
+		return this.vertices.size();
+	}
+	public void visitas(Vertice<E> nuevo ) {
+		this.posicion(nuevo);
+		this.vertices.get(this.posicion(nuevo)).visitado=true;
+		nuevo=this.vertices.get(this.posicion(nuevo));
+		System.out.print(this.vertices.get(this.posicion(nuevo)).data);
+		for(int j=0;j<tamañoGrafo();j++){
+			for ( int i=0; i<nuevo.edges.size();i++) {
+				ArrayList Adyacente =nuevo.edges;
+				if (Adyacente.get(i).equals(this.vertices.get(j).data) ) {
+					if(this.vertices.get(i).visitado==false) {
+						this.vertices.get(i).visitado=true;
+						System.out.print(this.vertices.get(i).data);
+					}
+				}
+			}
+		}
+		
+		
+	}
 	public int posicion ( Vertice<E> aux) {
 		int pos=-1;
 		for ( int i =0; i<this.vertices.size();i++) {
@@ -126,7 +146,7 @@ public class Grafo<E> {
 		 }
 	 public  boolean compararGrafos(Grafo<E> n1, Grafo<E> n2) {
 		 int cont=0;
-		 //primera comparación
+		 //primera comparación sobre si los vertices del mas pequeño es igual al grafo mayor
 		 if (n1.vertices.size()<n2.vertices.size() ) {
 			return compararGrafos(n2,n1);
 		 } 
@@ -140,17 +160,18 @@ public class Grafo<E> {
 		 if( cont ==n2.vertices.size())//comparo cant de vertices 
 			 for ( int i =0; i<n2.vertices.size();i++) {
 				 for ( int j =0; i<n2.vertices.get(i).edges.size();i++) {
-					 int pos =posicion(n2.vertices.get(i));
-					 buscarVertice(pos,n1, -1 );
+					 int pos =posicion(n2.vertices.get(j));
+					 buscarVertice(pos,n1.vertices, n2.vertices.get(j) );
 				 }
 			 }
 		return false;
 		 
 	 }
-		 public boolean buscarVertice(int n, Grafo<E> a, Object datos) {
-			 int  c =a.vertices.get(n).edges.size();
+		 public boolean buscarVertice(int n, ArrayList<Vertice> a, Vertice datos) {
+			 int  c =a.size();
 			 for ( int i =0; i<c;i++) {
-					 if ( vertices.get(n).edges.get(i).equals(datos))
+				 Vertice b =a.get(i);
+					 if ( b.data.equals(datos.data))
 						 return true;
 		 }
 			 return false;
