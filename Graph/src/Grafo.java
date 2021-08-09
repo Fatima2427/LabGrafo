@@ -37,7 +37,7 @@ public class Grafo<E> {
 			System.out.println("Vertice origen o destino no existen");
 			return;
 			}
-			for ( int i = 0; i <vertices.size(); i++) {
+		for ( int i = 0; i <vertices.size(); i++) {
 				if ( vertices.get(i).data.equals(verOri)) {
 					if( weitght >-1) 
 						vertices.get(i).addEdge(new Arista<E>(des, weitght));
@@ -63,28 +63,25 @@ public class Grafo<E> {
                 if(this.vertices.get(i).visitado==false){
                     visitas(this.vertices.get(i));
                 }
-            
-        }
+          }
  
     }
+	public void visitas(Vertice<E> nuevo ) {//visitamos los vertices 
+		System.out.print(this.vertices.get(this.posicion(nuevo)).data +" ");
+		nuevo.visitado=true;
+			for ( int i=0; i<nuevo.edges.size();i++) {	
+				Vertice <E> x= nuevo.edges.get(i).refDes;
+				if (x.data.equals(this.vertices.get(posicion(x)).data) ) {
+					if(this.vertices.get(posicion(x)).visitado==false)
+						visitas(this.vertices.get(posicion(x)));		
+				}
+
+				}
+		
+		
+	}
 	public int tamañoGrafo() {
 		return this.vertices.size();
-	}
-	public void visitas(Vertice<E> nuevo ) {
-		int pos=this.posicion(nuevo);
-		this.vertices.get(pos).visitado=true;
-		nuevo=this.vertices.get(pos);
-		System.out.print(this.vertices.get(this.posicion(nuevo)).data +" ");
-		for(int j=0;j<tamañoGrafo();j++){
-			for ( int i=0; i<nuevo.edges.size();i++) {
-				ArrayList Adyacente =nuevo.edges;
-				if (Adyacente.get(i).equals(this.vertices.get(j).data)&& this.vertices.get(i).visitado==false ) {
-						visitas(this.vertices.get(i));
-				}
-			}
-		}
-		
-		
 	}
 	public int posicion ( Vertice<E> aux) {// arroja la posicion de un vertice
 		int pos=-1;
@@ -169,7 +166,7 @@ public class Grafo<E> {
 			 return true;
 		 return false;
 	 }
-	 public int buscarVertice( ArrayList<Arista> a, Arista arista) {
+	 public int buscarVertice( ArrayList<Arista> a, Arista arista) {// busca si el vertice-arista esta en el grafo 1 como arista del vertice indicado
 		 int cont=0;
 			 int  c =a.size();
 			 for ( int i =0; i<c;i++) {

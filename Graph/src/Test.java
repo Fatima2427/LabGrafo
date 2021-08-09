@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 
 public class Test<E> {
 	public static void main ( String [] args) {// tarea
@@ -24,8 +25,13 @@ public class Test<E> {
 		g2.insertV(1);
 		g2.insertAri(1, 2);
 		System.out.println("\n" + g2);
+		System.out.println(g.vertices.get(1).visitado);
 		g.DFS();
 		System.out.println("\n Esta g2 dentro de g1 ?"+g.compararGrafos(g, g2));
+		ArrayList<Arista> a = g.vertices.get(3).edges;
+		System.out.println(a.get(1).refDes.data);
+		System.out.println(g.vertices.get(0).data);
+		System.out.println(g.vertices.get(1).visitado);
 	}
 	
 }
